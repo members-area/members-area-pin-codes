@@ -88,13 +88,16 @@ module.exports = class PinCodes extends Controller
       return done err if err
       userIds = []
       userIds.push entry.user_id for entry in @entries when entry.user_id > 0 and entry.user_id not in userIds
-      @req.models.User.find().where("id in (#{userIds.join(", ")})").run (err, users) =>
-        return done err if err
-        userById = {}
-        userById[user.id] = user for user in users
-        for entry in @entries
-          entry.user = userById[entry.user_id]
-        done(err)
+      if userIds.length
+        @req.models.User.find().where("id in (#{userIds.join(", ")})").run (err, users) =>
+          return done err if err
+          userById = {}
+          userById[user.id] = user for user in users
+          for entry in @entries
+            entry.user = userById[entry.user_id]
+          done()
+      else
+        done()
 
   ensureAdmin: (done) ->
     return @redirectTo "/login?next=#{encodeURIComponent @req.path}" unless @req.user?
