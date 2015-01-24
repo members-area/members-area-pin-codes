@@ -57,7 +57,7 @@ module.exports = class PinCodes extends Controller
           return done(err)
 
         for u in users when hash = u.meta.hashedPincode
-          codes[hash] =
+          codes[u.id] =
             username: u.username
             fullname: u.fullname
             user_id: u.id
