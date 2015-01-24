@@ -80,7 +80,7 @@ module.exports =
   modifyNavigationItems: ({addItem}) ->
     addItem 'settings',
       title: 'PIN codes'
-      id: 'members-area-pin-codes-settings'
+      id: 'members-area-pin-codes-pin-codes-settings'
       href: '/settings/pin-codes'
       priority: 20
       permissions: ['admin']
