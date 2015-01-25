@@ -1,6 +1,12 @@
 PersonController = require 'members-area/app/controllers/person'
 bcrypt = require 'members-area/node_modules/bcrypt'
 
+lpad = (id) ->
+  r = String(id)
+  while r.length < 4
+    r = "0#{r}"
+  return r
+
 module.exports =
   initialize: (done) ->
     @app.addRoute 'all' , '/pincodes' , 'members-area-pin-codes#pin-codes#list'
@@ -56,12 +62,6 @@ module.exports =
     if @req.method is 'POST' and @req.body.replacePin
       newPin = String(@req.body.pin)
       if newPin.match /^[0-9]{8}$/
-
-        lpad = (id) ->
-          r = String(id)
-          while r.length < 4
-            r = "0#{r}"
-          return r
 
         fullPin = lpad(@user.id) + newPin
 
