@@ -72,7 +72,7 @@ module.exports =
             hashedPincode: hash
           @user.save done
       else
-        @pinError = "Invalid pin code"
+        @pinError = "Invalid pin code (must be 8 digits long)"
         done()
     else
       done()
