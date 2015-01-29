@@ -41,4 +41,7 @@ block content
         td= entry.when.toISOString()
         td= entry.location
         td
-          a(href="/people/" + entry.user.id) #{entry.user.fullname} (#{entry.user.username})
+          if entry.user
+            a(href="/people/" + entry.user.id) #{entry.user.fullname} (#{entry.user.username})
+          else
+            | -
